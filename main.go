@@ -45,6 +45,9 @@ func main() {
 
 	app := fiber.New()
 
+	app.Post("/auth/register", h.Register)
+	app.Post("/auth/login", h.Login)
+
 	log.Println("Listening on : " + os.Getenv("APP_PORT"))
 	app.Listen(os.Getenv("APP_PORT"))
 }
