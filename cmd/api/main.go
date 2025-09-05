@@ -33,7 +33,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := db.AutoMigrate(&models.User{}); err != nil {
+	if err := db.AutoMigrate(
+		&models.User{},
+		&models.Book{},
+		&models.Author{},
+		&models.BookCategory{},
+		&models.Location{},
+	); err != nil {
 		log.Fatal(err)
 	}
 
