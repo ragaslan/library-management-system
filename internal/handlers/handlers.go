@@ -15,6 +15,7 @@ type Handler struct {
 	refreshTTL  time.Duration
 	JwtHandler  *JwtHandler
 	AuthHandler *AuthHandler
+	UserHandler *UserHandler
 }
 
 type registerReq struct {
@@ -36,11 +37,12 @@ func New(
 ) *Handler {
 	JwtHandler := &JwtHandler{RDB: rdb, jwtSecret: secret, accessTTL: access, refreshTTL: refresh}
 	AuthHandler := &AuthHandler{DB: db, JwtHandler: JwtHandler}
-
+	UserHandler := &UserHandler{DB: db}
 	return &Handler{
 		DB:          db,
 		RDB:         rdb,
 		JwtHandler:  JwtHandler,
 		AuthHandler: AuthHandler,
+		UserHandler: UserHandler,
 	}
 }

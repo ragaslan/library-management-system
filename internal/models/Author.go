@@ -6,5 +6,5 @@ type Author struct {
 	gorm.Model
 	Firstname string
 	Lastname  string
-	Books     []Book
+	Books     []Book `gorm:"foreignKey:AuthorID"`
 }
