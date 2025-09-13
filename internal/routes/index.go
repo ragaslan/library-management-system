@@ -11,4 +11,7 @@ func Register(app *fiber.App, h *handlers.Handler) {
 
 	registerAuth(v1, h)
 	registerUser(v1, h)
+	registerCategory(v1, h)
+	registerLocation(v1, h)
+
 }

@@ -8,14 +8,16 @@ import (
 )
 
 type Handler struct {
-	DB          *gorm.DB
-	RDB         *redis.Client
-	jwtSecret   string
-	accessTTL   time.Duration
-	refreshTTL  time.Duration
-	JwtHandler  *JwtHandler
-	AuthHandler *AuthHandler
-	UserHandler *UserHandler
+	DB              *gorm.DB
+	RDB             *redis.Client
+	jwtSecret       string
+	accessTTL       time.Duration
+	refreshTTL      time.Duration
+	JwtHandler      *JwtHandler
+	AuthHandler     *AuthHandler
+	UserHandler     *UserHandler
+	CategoryHandler *CategoryHandler
+	LocationHandler *LocationHandler
 }
 
 type registerReq struct {
@@ -38,11 +40,15 @@ func New(
 	JwtHandler := &JwtHandler{RDB: rdb, jwtSecret: secret, accessTTL: access, refreshTTL: refresh}
 	AuthHandler := &AuthHandler{DB: db, JwtHandler: JwtHandler}
 	UserHandler := &UserHandler{DB: db}
+	CategoryHandler := &CategoryHandler{DB: db}
+	LocationHandler := &LocationHandler{DB: db}
 	return &Handler{
-		DB:          db,
-		RDB:         rdb,
-		JwtHandler:  JwtHandler,
-		AuthHandler: AuthHandler,
-		UserHandler: UserHandler,
+		DB:              db,
+		RDB:             rdb,
+		JwtHandler:      JwtHandler,
+		AuthHandler:     AuthHandler,
+		UserHandler:     UserHandler,
+		CategoryHandler: CategoryHandler,
+		LocationHandler: LocationHandler,
 	}
 }
