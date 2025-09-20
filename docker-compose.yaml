@@ -1,16 +1,28 @@
-version: "3.9"
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-go-api:local
+    container_name: my-go-api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: unless-stopped
+    
   db:
-    image: postgres:16
+    image: postgres:15-alpine
+    container_name: my-go-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: deneme_db
-    ports: ["5432:5432"]
-  redis:
-    image: redis:7
-    ports: ["6379:6379"]
-  mailhog:
-    image: mailhog/mailhog
-    ports: ["8025:8025"]
+      POSTGRES_DB: mydb
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
+
+volumes:
+  db_data:
