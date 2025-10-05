@@ -41,7 +41,6 @@ func main() {
 
 	app := fiber.New()
 	routes.Register(app, h)
-
-	log.Println("Listening on : " + os.Getenv("APP_PORT"))
-	app.Listen(os.Getenv("APP_PORT"))
+	log.Println("Listening on : " + os.Getenv("PORT"))
+	app.Listen(":" + os.Getenv("PORT"))
 }
