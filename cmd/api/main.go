@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"github.com/ragaslan/library-management-system/internal/db"
 	"github.com/ragaslan/library-management-system/internal/handlers"
@@ -40,6 +41,10 @@ func main() {
 	)
 
 	app := fiber.New()
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 	routes.Register(app, h)
 	log.Println("Listening on : " + os.Getenv("PORT"))
 	app.Listen(":" + os.Getenv("PORT"))
